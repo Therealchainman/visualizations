@@ -1,0 +1,4 @@
+streamlit==1.38.0
+pyautogui==0.9.54
+networkx==3.3
+pyvis==0.3.2

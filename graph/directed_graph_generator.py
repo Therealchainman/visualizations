@@ -2,6 +2,7 @@ import networkx as nx
 from pyvis.network import Network
 from itertools import combinations
 import numpy as np
+from pathlib import Path
 
 options_str = """
 var options = {
@@ -51,6 +52,8 @@ for len_ in range(2, len(edges) + 1):
             search(i)
         if not is_valid(): continue
         reach = np.array(reachable)
+        if not Path("vis_matrices").exists():
+            Path("vis_matrices").mkdir()
         np.save(f"vis_matrices/reach_{str(cnt).zfill(4)}.npy", reach)
         G = nx.DiGraph()
         G.add_nodes_from(nodes)
@@ -64,6 +67,8 @@ for len_ in range(2, len(edges) + 1):
             node["label"] = str(node["label"])
         net.set_options(options_str)
         # net.show_buttons(filter_ = ["physics"])
+        if not Path("vis_htmls").exists():
+            Path("vis_htmls").mkdir()
         net.write_html(f"vis_htmls/graph_{str(cnt).zfill(4)}.html")
         if cnt % 100 == 0: print(cnt)
         cnt += 1
